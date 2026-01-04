@@ -1,0 +1,24 @@
+<form [formGroup]="taskForm" (ngSubmit)="submit()" class="mb-4">
+
+  <mat-form-field class="w-100 mb-2">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title">
+  </mat-form-field>
+
+  <mat-form-field class="w-100 mb-2">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="w-100 mb-2">
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="status">
+      <mat-option value="TODO">TODO</mat-option>
+      <mat-option value="IN_PROGRESS">IN PROGRESS</mat-option>
+      <mat-option value="DONE">DONE</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary">Add Task</button>
+
+</form>

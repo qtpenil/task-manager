@@ -1,0 +1,31 @@
+<h3 class="mb-3">Tasks</h3>
+
+<app-task-form></app-task-form>
+
+<table class="table table-bordered mt-3">
+  <thead class="table-light">
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.title }}</td>
+      <td>{{ task.description }}</td>
+      <td>{{ task.status }}</td>
+      <td>
+        <button
+          mat-button
+          color="warn"
+          (click)="delete(task.id!)"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

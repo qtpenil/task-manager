@@ -1,0 +1,18 @@
+<!-- <mat-toolbar color="primary" class="d-flex justify-content-between">
+  <span>Task Manager</span>
+
+  <div>
+    <a mat-button routerLink="/tasks">Tasks</a>
+    <a mat-button routerLink="/login">Logout</a>
+  </div>
+</mat-toolbar> -->
+
+
+<mat-toolbar color="primary" class="d-flex justify-content-between">
+  <span>Task Manager</span>
+
+  <div *ngIf="authService.isAuthenticated()">
+    <a mat-button routerLink="/tasks">Tasks</a>
+    <button mat-button (click)="authService.logout()">Logout</button>
+  </div>
+</mat-toolbar>
