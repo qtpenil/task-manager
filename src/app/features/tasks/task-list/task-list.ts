@@ -16,16 +16,39 @@ export class TaskList implements OnInit {
 
   tasks: Task[] = [];
 
+  selectedTask?: Task;
+
+
   constructor(private taskService: TaskService) { }
 
+  // ngOnInit() {
+  //   this.taskService.getTasks().subscribe(data => {
+  //     this.tasks = data;
+  //   });
+  // }
+
   ngOnInit() {
+    this.taskService.getTasks().subscribe(tasks => {
+      this.tasks = tasks;
+    });  
+  }
+
+  loadTasks() {
     this.taskService.getTasks().subscribe(data => {
       this.tasks = data;
     });
   }
 
   delete(id: number) {
-    this.taskService.deleteTask(id);
+    this.taskService.deleteTask(id).subscribe({
+      next: () => {
+        this.loadTasks(); // 🔥 IMPORTANT
+      }
+    });
   }
+
+  edit(task: Task) {
+    this.selectedTask = { ...task };
+  } 
 
 }

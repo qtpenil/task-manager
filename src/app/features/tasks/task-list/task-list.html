@@ -1,6 +1,9 @@
 <h3 class="mb-3">Tasks</h3>
 
-<app-task-form></app-task-form>
+<app-task-form
+  [selectedTask]="selectedTask"
+  (taskSaved)="loadTasks()">
+</app-task-form>
 
 <table class="table table-bordered mt-3">
   <thead class="table-light">
@@ -21,9 +24,12 @@
         <button
           mat-button
           color="warn"
-          (click)="delete(task.id!)"
-        >
-          Delete
+          (click)="delete(task.id!)"> Delete 
+        </button>
+        <button
+          mat-button
+          color="accent"
+          (click)="edit(task)"> Edit 
         </button>
       </td>
     </tr>

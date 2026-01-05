@@ -1,34 +1,63 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../../shared/models/task';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
 
-  private tasks: Task[] = [
-    {
-      id: 1, title: 'Learn Angular', description: 'Practice daily', status: 'TODO',completed: false
+    private API = `${environment.apiUrl}/tasks`;
+
+    constructor(private http: HttpClient) {}
+
+
+    // GET http://localhost:8080/api/tasks
+    getTasks() {
+      return this.http.get<Task[]>(this.API);
     }
-  ];
 
-  private taskSubject = new BehaviorSubject<Task[]>(this.tasks);
-  tasks$ = this.taskSubject.asObservable();
+    // POST http://localhost:8080/api/tasks
+    addTask(task: Task) {
+      return this.http.post<Task>(this.API, task);
+    } 
 
-  getTasks() {
-    return this.tasks$;
-  }
+    // DELETE http://localhost:8080/api/tasks/{id}
+    deleteTask(id: number) {
+      return this.http.delete(`${this.API}/${id}`);
+    }
 
-  addTask(task: Task) {
-    task.id = Date.now();
-    this.tasks.push(task);
-    this.taskSubject.next(this.tasks);
-  }
+    updateTask(id: number, task: Task) {
+      return this.http.put<Task>(`${this.API}/${id}`, task);
+    } 
 
-  deleteTask(id: number) {
-    this.tasks = this.tasks.filter(t => t.id !== id);
-    this.taskSubject.next(this.tasks);
-  }
+
+  // private tasks: Task[] = [
+  //   {
+  //     id: 1, title: 'Learn Angular', description: 'Practice daily', status: 'TODO',completed: false
+  //   }
+  // ];
+
+  // private taskSubject = new BehaviorSubject<Task[]>(this.tasks);
+  // tasks$ = this.taskSubject.asObservable();
+
+  // getTasks() {
+  //   return this.tasks$;
+  // }
+
+  // addTask(task: Task): Observable<void> {
+  //   task.id = Date.now();
+  //   task.completed = false;
+  //   this.tasks.push(task);
+  //   this.taskSubject.next(this.tasks);
+  //   return of(undefined);
+  // }
+
+  // deleteTask(id: number) {
+  //   this.tasks = this.tasks.filter(t => t.id !== id);
+  //   this.taskSubject.next(this.tasks);
+  // }
   
 }
