@@ -19,6 +19,8 @@
     </mat-select>
   </mat-form-field>
 
-  <button mat-raised-button color="primary">Add Task</button>
+  <button mat-raised-button color="primary">
+      {{ selectedTask ? 'Update Task' : 'Add Task' }}
+  </button>
 
 </form>

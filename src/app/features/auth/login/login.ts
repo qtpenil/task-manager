@@ -40,8 +40,12 @@ export class Login {
     console.log(this.loginForm.value);
 
     // TEMP login simulation
-    this.authService.login('dummy-jwt-token');
-    this.router.navigate(['/tasks']);
+    this.authService.loginApi(this.loginForm.value)
+      .subscribe(res => {
+        this.authService.login(res.token);
+        this.router.navigate(['/tasks']);
+    });
+
   }
 
 
