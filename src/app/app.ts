@@ -10,5 +10,7 @@ import { Navbar } from './shared/components/navbar/navbar';
   styleUrl: './app.css'
 })
 export class App {
-
+  ngOnInit() {
+    console.log("");
+  }
 }
